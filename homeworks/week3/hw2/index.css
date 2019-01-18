@@ -1,0 +1,42 @@
+.wrapper {
+    margin: 30px auto;
+    max-width: 900px;
+    padding: 0 35px
+}
+
+.title {
+    font-size: 42px;
+    margin: 40px 0;
+}
+
+.article {
+    font-size: 20px;
+}
+
+.clap {
+    position: fixed;
+    top: 150px;
+    left: 35px;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ADADAD;
+    border-radius: 99em;
+}
+
+.clap-num {
+    position: absolute;
+    top: 10px;
+    left: 17px;
+}
+
+.clap-hands {
+    position: absolute;
+    top: 28px;
+    left: 19px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .clap {
+        display: none;
+    }
+}
