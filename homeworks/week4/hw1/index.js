@@ -5,11 +5,9 @@ let total = '';
 
 function handleNumber(num) {
     if (operator === '') {
-        console.log(num1)
         num1 += num;
         displayButton(num1);
     } else {
-        console.log(num2)
         num2 += num;
         displayButton(num2);
     }
@@ -20,7 +18,7 @@ function handleOperator(oper) {
 }
 
 function displayButton(num) {
-    $('#result').text(num);
+    document.querySelector('#result').innerHTML = num;
 }
 
 function handleTotal() {
@@ -51,32 +49,20 @@ function updateVariables() {
     operator = '';
 }
 
-$('.nums').on('click', e => {
-    let btn = e.target.innerHTML;
+function selectnumber(e) {
+    let btn = e.innerHTML;
     handleNumber(btn);
-});
+}
 
-$('.operator').on('click', e => {
-    let btn = e.target.innerHTML;
+function selectoperator(e) {
+    let btn = e.innerHTML;
     handleOperator(btn);
-});
+}
 
-$('#equal').on('click', () => {
-    console.log(num1)
-    console.log(num2)
-    console.log(operator)
-    console.log(total)
-    handleTotal();
-});
-
-$('#ac').on('click', e => {
+function allclear() {
     num1 = '';
     num2 = '';
     operator = '';
     total = '';
-    console.log(num1)
-    console.log(num2)
-    console.log(operator)
-    console.log(total)
-    $('#result').text(0);
-});
+    document.querySelector('#result').innerHTML = 0;
+}
