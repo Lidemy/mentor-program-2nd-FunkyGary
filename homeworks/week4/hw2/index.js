@@ -1,40 +1,36 @@
-$('#submit').click(e => {
+function submitform() {
+    event.preventDefault();
     let success = 0;
+    let radioChecked = 0;
     const necessary_questions = 5;
-    $('input').not('#other, #submit').each(function() {
-        if (this.name === 'radio') {
-            if (!$(':input[type = radio]').is(':checked')) {
-                $('#reminder__type').css('display', 'block');
-                $('#reminder__type').parent(".form__content").css('background', 'rgb(255, 214, 214)')
-                success--;
-            } else {
-                $('#reminder__type').css('display', 'none');
-                $('#reminder__type').parent(".form__content").css('background', 'white')
+    document.querySelectorAll('input:not(#other):not(#submit)').forEach(function(e) {
+        if (e.name === 'radio') {
+            if (e.checked) {
+                ++radioChecked;
+            }
+            if (radioChecked) {
+                document.querySelector('#reminder__type').style.display = 'none';
+                document.querySelector('#reminder__type').parentNode.style.background = 'rgb(255,255,255)';
                 success++;
+            } else {
+                document.querySelector('#reminder__type').style.display = 'block';
+                document.querySelector('#reminder__type').parentNode.style.background = 'rgb(255, 214, 214)';
+                success--;
             }
         } else {
-            if ($(this).val() === "") {
-                $(this).next().css('display', 'block');
-                $(this).parent(".form__content").css('background', 'rgb(255, 214, 214)')
+            if (e.value === "") {
+                console.log(e.nextElementSibling)
+                e.nextElementSibling.style.display = 'block';
+                e.parentNode.style.background = 'rgb(255, 214, 214)';
                 success--;
             } else {
-                $(this).next().css('display', 'none');
-                $(this).parent(".form__content").css('background', 'white')
+                e.nextElementSibling.style.display = 'none';
+                e.parentNode.style.background = 'rgb(255,255,255)';
                 success++;
             }
         }
     })
     if (success === necessary_questions) {
-        alert('success')
+        alert('success');
     }
-})
-
-function PostData() {
-    $.ajax({
-        type: "POST",
-        url: "post.go",
-        data: "",
-        success: function(msg) {}
-    });
-    return false;
 }

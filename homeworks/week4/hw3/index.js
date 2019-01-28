@@ -30,7 +30,6 @@ Http.onreadystatechange = (e, cb) => {
         let preview = top20games[i].preview;
         let created_at = top20games[i].created_at;
         document.querySelector('.container').innerHTML += renderStream(url, preview, logo, status, display_name, created_at)
-        console.log(i)
     }
 }
 console.log(top20games.length)
