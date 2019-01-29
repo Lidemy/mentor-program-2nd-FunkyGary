@@ -3,7 +3,7 @@ function submitform() {
     let success = 0;
     let radioChecked = 0;
     const necessary_questions = 5;
-    document.querySelectorAll('input:not(#other):not(#submit)').forEach(function(e) {
+    document.querySelectorAll('input:not(#other):not(#submit)').forEach(function(e, cb) {
         if (e.name === 'radio') {
             if (e.checked) {
                 ++radioChecked;
@@ -31,6 +31,10 @@ function submitform() {
         }
     })
     if (success === necessary_questions) {
-        alert('success');
+        cb();
     }
+}
+
+function cb() {
+    alert('success');
 }
