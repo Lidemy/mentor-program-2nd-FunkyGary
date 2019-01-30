@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Gary'shw2</title>
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container__banner"></div>
+    </div>
+    <div class="container__background">
+        <form class="form" onsubmit="return PostData()">
+            <div class="form__header">
+                <div class="form__title">
+                    從零到一：程式導師實驗計畫報名表單
+                </div>
+                <div class="form__detail">
+                    <p>詳情請參考： <a href="https://medium.com/@hulitw/mentor-program-b5f96ae1eed1">https://medium.com/@hulitw/mentor-program-b5f96ae1eed1</a>
+                        <br> 記得填完表單之後還要寫信報名才算成功，兩者缺一不可！
+                    </p>
+                    <p class="star">* 代表必填</p>
+                </div>
+            </div>
+            <div class="form_body">
+                <div class="form__content form__email">
+                    <div class="form__input">
+                        電子郵件地址
+                        <span class="star">*</span>
+                    </div>
+                    <input type="email" id="email" placeholder="你的電子郵件" name="email">
+                    <div class="reminder" id="reminder__email">這是必填問題</div>
+                </div>
+                <div class="form__content form__name">
+                    <div class="form__input">
+                        暱稱
+                        <span class="star">*</span>
+                        <br>
+                        <span class="eg">該怎麼稱呼你</span>
+                    </div>
+                    <input type="text" id="name" placeholder="你的回答" name="name">
+                    <div class="reminder" id="reminder__name">這是必填問題</div>
+                </div>
+                <div class="form__content form__type">
+                    <div class="form__input">
+                        報名類型
+                        <span class="star">*</span>
+                    </div>
+                    <input type="radio" id="type__eng" value="type__eng" name="radio">
+                    <label for="type__eng">工程師培養班（每週付出四十小時，從零培養到工程師，學費是一個月薪水） </label>
+                    <br>
+                    <br>
+                    <input type="radio" id="type__fun" value="type_fun" name="radio">
+                    <label for="type__fun">業餘班（依照個人目標訂立學習計畫，學費一萬五千元）</label>
+                    <div class="reminder" id="reminder__type">這是必填問題</div>
+                </div>
+                <div class="form__content form__coding">
+                    <div class="form__input">
+                        是否有程式相關背景？
+                        <span class="star">*</span>
+                        <br>
+                        <span class="eg">範例：無、高中時候學過C++、學過一點網頁前端、目前在資策會上課...</span>
+                    </div>
+                    <input type="text" id="coding" placeholder="你的回答" name="coding">
+                    <div class="reminder" id="reminder__coding">這是必填問題</div>
+                </div>
+                <div class="form__content">
+                    <div class="form__input">
+                        其他
+                        <br>
+                        <span class="eg">其他任何你想講der</span>
+                    </div>
+                    <input type="text" id="other" placeholder="你的回答" name="other">
+                </div>
+                <div class="form__content">
+                    <input type="submit" id="submit" name="submit" onclick="submitform()">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
