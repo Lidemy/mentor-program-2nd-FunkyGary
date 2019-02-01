@@ -1,6 +1,6 @@
 .container {
     width: 80%;
-    margin: 0 auto;
+    margin: 10px auto;
     box-sizing: border-box;
 }
 
@@ -41,8 +41,13 @@ input {
 
 .page-bar {
     list-style: none;
+    display: flex;
 }
 
 .bottom__footer {
     margin: 0 auto;
+}
+
+li {
+    padding: 10px;
 }

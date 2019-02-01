@@ -23,14 +23,18 @@
             }
         ?>
         <form action="/Gary/add_comment.php" method='POST'>
-                <div class="nickname">
-                    暱稱: <input name='nickname' type="text"/>
-                </div>
+                <input type='hidden' name='nickname' value='<? echo $nickname?>'>  
                 <div class="message">
                     留言: <input name='content' type="text"/>
                 </div>
                 <div class="btn">
-                    <input type="submit" />
+<?
+                if($is_login) {
+                    echo "<input type='submit' />";
+                } else {
+                    echo "<input type='submit' value='請先登入' disabled />";
+                }
+?> 
                 </div>
                 <input type="hidden" name='parent_id' value='<? echo $parent_id?>'>
             </form>  

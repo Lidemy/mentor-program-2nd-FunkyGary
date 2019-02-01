@@ -1,18 +1,19 @@
 <?
     require_once('conn.php');
     $error_megssage = '';
-    if (isset($_POST['username']) && isset($_POST['password'])) {
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['nickname'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $sql = "SELECT * from users where username='" . $username . "' and password='". $password ."'";
+        $nickname = $_POST['nickname'];
+        $sql = "INSERT INTO users(username, password, nickname) VALUES ('$username', '$password', '$nickname')";
         $result = $conn->query($sql);
-        if ( $result->num_rows > 0 ) {
-            $row = $result->fetch_assoc();
-            setcookie("user_id", $row['id'], time()+3600*24);
+        if ($result) {
+            $last_id = $conn->insert_id;
+            setcookie("user_id", $last_id, time()+3600*24);
             header('Location: index.php');
-        } else {
-            $error_megssage = '帳號或密碼錯誤';
         }
+        $conn->close();
+        header('Location: index.php');
     }
 ?>
 
@@ -28,10 +29,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>登入</h1>
-        <form action="/Gary/login.php" method='POST'>
+        <h1>註冊</h1>
+        <form action="/Gary/register.php" method='POST'>
             username: <input name='username' />
             password: <input name='password' type='password'/>
+            nickname: <input name='nickname' type='nickname'/>
             <input type="submit" />
         </form>
 <?
@@ -42,6 +44,3 @@
     </div>
 </body>
 </html>
-
-
-
