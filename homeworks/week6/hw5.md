@@ -19,7 +19,6 @@ XSS 全稱為 Cross-Site Scripting，可中譯為跨網站指令碼攻擊，以�
 3.DOM-Based XSS (基於 DOM 的類型)
 
 1. Stored XSS (儲存型)
-
 會被保存在伺服器資料庫中的 JavaScript 代碼引起的攻擊即為 Stored XSS，最常見的就是論壇文章、留言板等等，因為使用者可以輸入任意內容，若沒有確實檢查，那使用者輸入如 <script> 等關鍵字就會被當成正常的 HTML 執行，標籤的內容也會被正常的作為 JavaScript 代碼執行。
 
 2. Reflected XSS (反射型)
@@ -295,4 +294,40 @@ Lax 模式放寬了一些限制，例如說<a>, <link rel="prerender">, <form me
 
 ## 請去查什麼是 Session，以及 Session 跟 Cookie 的差別
 
+Cookie
+最常見到的 Cookie 應用是在表單填寫：假設現在頁面上的資料填到一半，不小心把網頁關掉，這時再重新打開發現先前填的內容還在的話，靠的就是 cookie。實作原理很簡單，client 端的程式在一旦填寫的資料有變動時，就把該資訊寫入 cookie。Cookie 由瀏覽器處理，具有兩個特性：
+
+1.Domain specific：只針對原本的 domain 起作用。舉例，在 *.example.com 存入的 cookie，不會出現在 *.not-example.com。到了所設定的生命期限之後會失效。（如果是在 server-side 設定的話，預設是在關閉瀏覽器後失效，後面會詳述）。
+
+2.有生命期限：
+// 在 www.example.com 的頁面中
+function setCookie(cname, cvalue, exdays) {
+var d = new Date();
+d.setTime(d.getTime() + (exdays*24*60*60*1000));
+var expires = "expires="+d.toUTCString();
+document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+執行 setCookie('name', 'jcc', 1) 後，會在只有 www.example.com 作用的 cookie 中加入 name=jcc 字串，並於一天後刪除。而下次瀏覽器造訪 www.example.com 時，就可以從 cookie 去取得裡面有存的資料，
+
+伺服器端的 Cookie
+Cookie 的規範中定義了：伺服器端從 request 中接受到 cookie 的訊息，在產生 response 的時候，也會一起回覆給用戶端。這個行為也告訴我們：在伺服器這邊也可以設定 cookie。由伺服器這邊設定給 cookie 的訊息，可能就會有關身分驗證，因此稍微中斷一下，接下來先來介紹 session。
+
+Signed Cookie
+所以當伺服器端在產生 cookie 時，都會加上 secret 來作 hash，來保證回來的資料沒有被更動過。
+假設現在的 cookie 資料是：
+
+{ dotcom_user: 'jcc' }
+搭配上一段秘密字串 this_is_my_secret_and_fuck_you_all，來作 sha1：
+var r = sha1('this_is_my_secret_and_fuck_you_all' + 'jcc')
+// d01a3d595af33625be4159de07a20b79a1540e54
+最後回傳到用戶端的 cookie 為
+{ dotcom_user: 'jcc',
+'dotcom_user.sig': 'd01a3d595af33625be4159de07a20b79a1540e54' }
+這時如果用戶端更改了 cookie，因為他不知道秘密字串是什麼，所以無法產生正確的 hash 值，因此在校對時就會出錯。這樣就可以避免掉被竄改 cookie 的可能了！
+
 ## `include`、`require`、`include_once`、`require_once` 的差別
+
+include 和 include_once
+都是用來引入檔案，後者可避免重複引入，故建議用後者。引不到檔案會出現錯誤息，但程式不會停止。
+require 和 require_once
+都是用來引入檔案，後者可避免重複引入，故建議用後者。引不到檔案會出現錯誤息，而且程式會停止執行。
