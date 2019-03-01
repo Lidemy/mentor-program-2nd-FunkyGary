@@ -293,6 +293,23 @@ Lax 模式放寬了一些限制，例如說<a>, <link rel="prerender">, <form me
 </td></tr></tbody></table>
 
 ## 請去查什麼是 Session，以及 Session 跟 Cookie 的差別
+Session 是什麼？
+Session 之所以會存在，是因為 HTTP 為 stateless 的設計，Server 和 Client 不會一直保持連線狀態，也不會有雙方狀態的即時更新，所以，Server 並不知道 Client 的狀態（像是是否已經登入）。
+
+Session 的原理
+很多人在討論 Session 時，不免與 Cookie 牽扯上關係，反而不小心偏了重點，所以在了解 Session 時必須有個觀念，就算沒有 Cookie 的存在，Session 機制也可以正常運作。
+
+簡單來說，Session 的機制就像是你去飲料店下了單以後，得到號碼牌，然後你走開幾步，店員就忘了你是誰。所以，如果你想去取飲料，你就得靠這張號碼牌，去跟店員領，店員會跟據這號碼牌，認定你是顧客、是否點過餐、知道你點了什麼東西，然後可以接著給你屬於你的飲料。
+
+理解 Session 的原理後，回到 HTTP 上就是一樣的。只是，在網頁技術中，有兩種方法讓 Client 取得號碼牌，一個是用 Cookie，另一個是直接輸出並嵌入頁面之中的方法（就是要你把號碼背起來）。
+
+拿號碼牌去 Server 要資料，主要也分為兩種方法，Cookie 和運用標準的 Query string/POST body方法。（其實只要能把號碼傳到 Server 上，任何方法都行）
+
+只不過，因為實作上的困難度考量，還有現今的 Browser 預設都支援 Cookie，所以在現有的網站框架中，都預設採用 Cookie 來發號碼牌和兌換資料。Cookie 的交換會在建立連線時，在背景自動完成，因此開發者不必考慮Client/Server的號碼牌交換問題。因為 Browser 會在建立連線後，第一時間就自動在背景把 Cookie 上傳到 Server，Server 也在回傳資料時，第一時間自動把 Cookie 回傳給 Client。
+
+所以，除非是有必要（像是 Browser/Client 不支援 Cookie 的情況），才會保留另一種實作。
+
+
 
 Cookie
 最常見到的 Cookie 應用是在表單填寫：假設現在頁面上的資料填到一半，不小心把網頁關掉，這時再重新打開發現先前填的內容還在的話，靠的就是 cookie。實作原理很簡單，client 端的程式在一旦填寫的資料有變動時，就把該資訊寫入 cookie。Cookie 由瀏覽器處理，具有兩個特性：
@@ -309,12 +326,8 @@ document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 執行 setCookie('name', 'jcc', 1) 後，會在只有 www.example.com 作用的 cookie 中加入 name=jcc 字串，並於一天後刪除。而下次瀏覽器造訪 www.example.com 時，就可以從 cookie 去取得裡面有存的資料，
 
-伺服器端的 Cookie
-Cookie 的規範中定義了：伺服器端從 request 中接受到 cookie 的訊息，在產生 response 的時候，也會一起回覆給用戶端。這個行為也告訴我們：在伺服器這邊也可以設定 cookie。由伺服器這邊設定給 cookie 的訊息，可能就會有關身分驗證，因此稍微中斷一下，接下來先來介紹 session。
-
 Signed Cookie
-所以當伺服器端在產生 cookie 時，都會加上 secret 來作 hash，來保證回來的資料沒有被更動過。
-假設現在的 cookie 資料是：
+所以當伺服器端在產生 cookie 時，都會加上 secret 來作 hash，來保證回來的資料沒有被更動過。假設現在的 cookie 資料是：
 
 { dotcom_user: 'jcc' }
 搭配上一段秘密字串 this_is_my_secret_and_fuck_you_all，來作 sha1：
@@ -324,6 +337,8 @@ var r = sha1('this_is_my_secret_and_fuck_you_all' + 'jcc')
 { dotcom_user: 'jcc',
 'dotcom_user.sig': 'd01a3d595af33625be4159de07a20b79a1540e54' }
 這時如果用戶端更改了 cookie，因為他不知道秘密字串是什麼，所以無法產生正確的 hash 值，因此在校對時就會出錯。這樣就可以避免掉被竄改 cookie 的可能了！
+
+
 
 ## `include`、`require`、`include_once`、`require_once` 的差別
 
