@@ -8,10 +8,12 @@
         $stmt = $conn->prepare("INSERT INTO users(username, password, nickname) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $password, $nickname);
         if ($stmt->execute()) {
-            $newid = session_create_id();
-            $saveSession = "INSERT INTO `users_certificate` (`id`, `username`) VALUES ('{$newid}', '{$username}')";
-            $conn -> query( $saveSession );
-            setcookie ( "id" , $newid , time () +  60  *  60 );
+            // $newid = session_create_id();
+            // $saveSession = "INSERT INTO `users_certificate` (`id`, `username`) VALUES ('{$newid}', '{$username}')";
+            // $conn -> query( $saveSession );
+            // setcookie ( "id" , $newid , time () +  60  *  60 );
+            $_SESSION['username'] = $username;
+            $_SESSION['nickname'] = $nickname;           
             header('Location: index.php');
         } else {
             $error_megssage = '註冊失敗';

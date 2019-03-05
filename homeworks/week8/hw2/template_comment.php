@@ -27,7 +27,7 @@
         <h2>回應</h2>
         <?
             $parent_id = $row['id'];
-            $sub_stmt = $conn->prepare("SELECT * FROM comments LEFT JOIN users ON comments.username = users.username WHERE parent_id = ? ORDER BY `created_at` DESC");
+            $sub_stmt = $conn->prepare("SELECT comments.id, comments.content, comments.`created_at`, users.nickname, users.username FROM comments LEFT JOIN users ON comments.username = users.username WHERE parent_id = ? ORDER BY `created_at` DESC");
             $sub_stmt -> bind_param( "i" , $parent_id);
             $sub_stmt->execute();
             $sub_result = $sub_stmt -> get_result();

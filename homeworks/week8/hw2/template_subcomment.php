@@ -1,6 +1,7 @@
 <div class="subbox  <? if ($username === $sub_row['username']) {
     echo background_blue;
 } ?>">
+    <input id="sub_comment_id" type="hidden" name='id' value='<?= $sub_row['id']?>'>
     <div>
         建立時間: <? echo $sub_row['created_at'] ?>
     </div>

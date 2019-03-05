@@ -1,5 +1,6 @@
 <?
     require_once('conn.php');
+    session_start(); // 啟用 PHP 內建的 session
     $error_megssage = '';
     if (isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['username']) && !empty($_POST['password'])) {
         $username = $_POST['username'];
@@ -13,10 +14,12 @@
         if ($result->num_rows > 0) {
             $row = $result -> fetch_assoc();
             if (password_verify($password, $hash)) {
-                $newid = session_create_id();
-                $saveSession = "INSERT INTO `users_certificate` (`id`, `username`) VALUES ('{$newid}', '{$username}')";
-                $conn -> query( $saveSession );
-                setcookie ( "id" , $newid , time () +  60  *  60 );
+                // $newid = session_create_id();
+                // $saveSession = "INSERT INTO `users_certificate` (`id`, `username`) VALUES ('{$newid}', '{$username}')";
+                // $conn -> query( $saveSession );
+                // setcookie ( "id" , $newid , time () +  60  *  60 );
+                $_SESSION['username'] = $username;
+                $_SESSION['nickname'] = $row['nickname'];
                 header('Location: index.php');
             } else {
                 $error_megssage = '帳號或密碼錯誤';
