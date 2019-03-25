@@ -1,0 +1,18 @@
+<%  let sub_posts = [];
+    for ( let j =0 ; j < posts.length ; j++ ) {
+        if ( posts[j].parent_id == main_posts[i].id) {
+            sub_posts.push(posts[j])
+        }
+    }
+    let page_num = Math.ceil( sub_posts.length / 10 );
+    let posts_amount = page_num * 10;
+    for(let k = 0; k < sub_posts.length ; k++) { %>
+    <div class="box">
+        <h2>留言</h2>
+        <div>建立時間: <%= sub_posts[k].createdAt %></div>
+        <div>暱稱: <%= sub_posts[k].user.nickname %></div>
+        <div>標題: <%= sub_posts[k].title %></div>
+        <div>留言: <%= sub_posts[k].content %></div>
+    </div>
+<% } %>
+
