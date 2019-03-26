@@ -32,92 +32,9 @@ if (isset ($_SESSION["username"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<style>
-* {
-    box-sizing: border-box;
-}
-
-.text_align_center {
-    text-align: center;
-}
-
-.background_blue {
-    background: blue;
-}
-
-.box {
-    margin-top: 10px;
-    border: 1px solid gray;
-    padding: 10px;
-}
-
-.subbox {
-    margin-top: 10px;
-    padding: 10px;
-}
-
-input {
-    width: 100%;
-    height: 100%;
-}
-
-.message {
-    padding-top: 10px;
-    height: 200px;
-}
-
-.btn {
-    margin: 30px auto;
-    width: 100%;
-}
-
-.submessage {
-    width: 80%;
-}
-
-.page-bar {
-    list-style: none;
-    display: flex;
-}
-
-.bottom__footer {
-    margin: 0 auto;
-}
-
-li {
-    padding: 10px;
-}
-
-.editMode {
-    border: 1px solid red;
-}
-
-.editComment {
-    display: none;
-}
-
-.editMode input[type=text] {
-    display: block;
-    position: absolute; 
-    top: 0px;
-}
-
-.editMode label {
-    display: none;
-}
-
-.content label {
-    border-top: 1px solid black;
-    display:block;
-    position: relative; 
-}
-
-.display_none {
-    display: none;
-}
-</style>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -1,0 +1,47 @@
+<%  let main_posts = [];
+    for ( let i=0 ; i < posts.length ; i++ ) {
+        if ( posts[i].parent_id == 0) {
+            main_posts.push(posts[i])
+        }
+    }
+    let page_num = Math.ceil( main_posts.length / 10 );
+    let posts_amount = page_num * 10;
+    for(let i=0; i < ( main_posts.length > posts_amount ? posts_amount : main_posts.length ) ; i++) { %>
+    <div class="box">
+        <h2>留言</h2>
+        <div>建立時間: <%= main_posts[i].createdAt %></div>
+        <div>暱稱: <%= main_posts[i].user.nickname %></div>
+        <div>標題: <%= main_posts[i].title %></div>
+        <div>留言: <%= main_posts[i].content %></div>
+        <div class="submessage">
+        <h2>回應</h2>
+        <%- include("_template_subcomments.ejs", {main_posts: main_posts, i: i})%>
+            <form action='/new_post' method='POST'>
+                <div class="nickname">
+                    暱稱：
+                    <% if (!username) { %>
+                        訪客請先登入
+                    <% } else { %>
+                        <%= nickname %>
+                    <% } %>
+                </div>
+                <input name='title' type="hidden" value='subcomments'>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content</label>
+                    <textarea name='content' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <input type='hidden' name='parent_id' value='<%= id %>' />
+                <% if (username) { %>
+                    <input type='hidden' name='id' value='<%= id %>' />
+                    <button type="submit" class="btn btn-primary">留言</button>
+                <% } %>
+            </form>  
+        </div>
+    </div>
+<% } %>
+<footer class='bottom__footer'>
+    <ul class="page-bar">
+        <%= page_num %>
+    </ul>
+</footer>
+
