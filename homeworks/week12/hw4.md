@@ -31,7 +31,13 @@ props為父元件所傳來的資料內容，可以為任何型態，陣列or字�
 componentWillMount()，在组件首次渲染(render)之前调用。
 componentDidMount()，一旦组件首次加载完成，便会调用
 shouldComponentUpdate(nextProps, nextState)，要不要更新(重新渲染)组件？
+    1.返回true，重新渲染。紧接着，继续执行 componentWillUpdate() → render() → componentDidUpdate()。
+    2.false，不重新渲染。不再执行任何生命周期函数函数（亦不执行该组件的 render( ) 函数）。但是，并不妨碍其子组件。也就是说，如果其子组件的 props 或 state 发生改变时，只会取决于那个组件的 shouleComponentUpdate ( ) 方法的返回值。
+componentWillUpdate(nextProps, nextState)，当 shouldComponentUpdate( ) 方法返回 true 后调用。
+componentDidUpdate(prevProps, preState)，一旦组件首次更新（重新渲染）完成时调用。
+componentWillUnmount()，在组件即将被卸载(或销毁)之前调用。
 
 
 
-componentDidMount() 方法會在組件已經被渲染到DOM 中後運行
+
+
