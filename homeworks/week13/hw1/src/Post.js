@@ -11,12 +11,11 @@ class Post extends Component {
     }
   
     componentDidMount () {
-      const {match, changeTitle} = this.props
+      const {match} = this.props
       axios.get("https://jsonplaceholder.typicode.com/posts/" + match.params.id).then(respose => {
         this.setState({
           post: respose.data
         })
-        changeTitle(respose.data.title)
       })
       // fetch("https://jsonplaceholder.typicode.com/posts/" + this.props.id)
       //   .then(res => res.json())
