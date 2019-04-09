@@ -4,8 +4,6 @@ import { HashRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
 import Header from './Header';
 import Post from './Post';
-import {CHANGE_TITLE} from './actionTypes'; 
-
 
 class Home extends Component {
   constructor () {
@@ -60,20 +58,25 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      title: 'Blog'
     }
   }
 
+  handleTabChange(e) {
+    e.preventDefault()
+    this.setState({
+      tab: e.target.innerHTML
+    })
+  }
+
   render() {
-    const {title} = this.state
     return (
       <Router>
         <div className="App">
-          <Header title={title} />
+          <Header/>
           <div className="container">
             <Route exact path='/' component={Home} />
             <Route path='/about' component={About} />
-            <Route path='/posts/:id' render={Post} />
+            <Route path='/posts/:id' component={Post} />
           </div>
         </div>
       </Router>
