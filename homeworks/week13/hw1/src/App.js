@@ -14,7 +14,7 @@ class Home extends Component {
   }
 
   componentDidMount () {
-    axios.get("https://jsonplaceholder.typicode.com/posts").then(respose => {
+    axios.get("http://45.55.26.18:3310/posts").then(respose => {
       this.setState({
         posts: respose.data
       })
@@ -48,10 +48,50 @@ class Home extends Component {
   }
 }
 
-const About = () => {
-  return (
-    <div>I am about</div>
-  )
+class NewPost extends Component {
+  constructor() {
+    super();
+    this.state = {
+      title: '',
+      body: ''
+    }
+  }
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  onSubmit = () => {
+    const {title, body} = this.state  
+    axios.post('http://45.55.26.18:3310/posts', {
+      title,
+      body,
+      author: 'Gary'
+    }).then(() => {
+      alert('成功')
+    }).catch(() => {
+      alert('失敗')
+    }) 
+  }
+
+  render() {
+    const {title, body} = this.state  
+    return ( 
+      <div className='newpost'>
+        <div class="form-group">
+          <label for="usr">Title:</label>
+          <input type="text" class="form-control" name='title' value={title} onChange={this.handleInputChange}/>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Body:</label>
+          <textarea class="form-control" rows="5" name='body' value={body}  onChange={this.handleInputChange}></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" onClick={this.onSubmit}>Submit</button>
+      </div>
+    ) 
+  }
 }
 
 class App extends Component {
@@ -75,7 +115,7 @@ class App extends Component {
           <Header/>
           <div className="container">
             <Route exact path='/' component={Home} />
-            <Route path='/about' component={About} />
+            <Route path='/newpost' component={NewPost} />
             <Route path='/posts/:id' component={Post} />
           </div>
         </div>

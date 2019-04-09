@@ -12,7 +12,7 @@ class Post extends Component {
   
     componentDidMount () {
       const {match} = this.props
-      axios.get("https://jsonplaceholder.typicode.com/posts/" + match.params.id).then(respose => {
+      axios.get("http://45.55.26.18:3310/posts/" + match.params.id).then(respose => {
         this.setState({
           post: respose.data
         })
@@ -36,7 +36,6 @@ class Post extends Component {
         <div>
           <h3>{post.title}</h3>
           <div>id: {match.params.id}</div>
-          <div>userId: {post.userId}</div>
           <p>{post.body}</p>
           <button className='btn btn-primary' onClick={ () => {
             history.goBack()

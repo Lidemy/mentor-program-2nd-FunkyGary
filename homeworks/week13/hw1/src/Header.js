@@ -17,8 +17,8 @@ class Header extends React.Component {
                     <li className={"nav-item" + (pathname === '/' && ' active')}>
                     <Link className="nav-link" to='/'>Home</Link>
                     </li>
-                    <li className={"nav-item" + (pathname === '/about' && ' active')}>
-                    <Link className="nav-link" to='/about'>About</Link>
+                    <li className={"nav-item" + (pathname === '/newpost' && ' active')}>
+                    <Link className="nav-link" to='/newpost'>NewPost</Link>
                     </li>
                 </ul>
                 </div>
