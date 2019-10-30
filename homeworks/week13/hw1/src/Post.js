@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.css';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router-dom";
 
 class Post extends Component {
     constructor () {
@@ -29,6 +31,13 @@ class Post extends Component {
       //   }
       // )
     }
+
+    deletePost = e => {
+      axios.delete("http://45.55.26.18:3310/posts/" + this.state.post.id).then(respose => {
+        alert(respose.statusText)
+        this.props.history.push("/")
+      })
+    }
   
     render() {
       const post = this.state.post
@@ -41,6 +50,9 @@ class Post extends Component {
           <button className='btn btn-primary' onClick={ () => {
             history.goBack()
           }}>Back</button>
+          <Button variant="contained" color="secondary" onClick={this.deletePost}>
+            刪除
+          </Button>
         </div>
         ) 
     }
