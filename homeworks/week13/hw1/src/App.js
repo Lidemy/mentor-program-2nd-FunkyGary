@@ -80,15 +80,15 @@ class NewPost extends Component {
     const {title, body} = this.state  
     return ( 
       <div className='newpost'>
-        <div class="form-group">
+        <div className="form-group">
           <label for="usr">Title:</label>
-          <input type="text" class="form-control" name='title' value={title} onChange={this.handleInputChange}/>
+          <input type="text" className="form-control" name='title' value={title} onChange={this.handleInputChange}/>
         </div>
         <div class="form-group">
           <label for="pwd">Body:</label>
-          <textarea class="form-control" rows="5" name='body' value={body}  onChange={this.handleInputChange}></textarea>
+          <textarea className="form-control" rows="5" name='body' value={body} onChange={this.handleInputChange}></textarea>
         </div>
-        <button class="btn btn-primary" type="submit" onClick={this.onSubmit}>Submit</button>
+        <button className="btn btn-primary" type="submit" onClick={this.onSubmit}>Submit</button>
       </div>
     ) 
   }
