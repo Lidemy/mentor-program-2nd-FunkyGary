@@ -7,13 +7,15 @@ const initialState = {
 
 function AppReducer(state = initialState, action) {
     switch (action.type) {
-        case CHANGE_TITLE:
-            {
-                return {
-                    ...state,
-                    title: action.title
-                }
+        case CHANGE_TITLE:{
+            return {
+                ...state,
+                title: action.title
             }
+        }
+        default: {
+            return state
+        }
     }
 }
 

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
-import Header from './HeaderContainer';
-import Post from './PostContainer';
+import Header from './Header';
+import Post from './Post';
+import { globalState, setGlobalState, dispatch } from './globalState'
+import { updateNavText } from './actions'
+import { connect } from 'react-redux'
 
 class Home extends Component {
   constructor () {
@@ -48,6 +51,8 @@ class Home extends Component {
   }
 }
 
+connect(null, mapDispatchToProps)(Home)
+
 class NewPost extends Component {
   constructor() {
     super();
@@ -89,14 +94,31 @@ class NewPost extends Component {
           <textarea class="form-control" rows="5" name='body' value={body}  onChange={this.handleInputChange}></textarea>
         </div>
         <button class="btn btn-primary" type="submit" onClick={this.onSubmit}>Submit</button>
+        <button onClick={() => dispatch(updateNavText(Math.random())) }> click me </button>
       </div>
     ) 
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+      updateNav: text => dispatch(updateNavText(Text))
+  }
+}
+
+
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state = {
+    }
+  }
+
+  handleTabChange(e) {
+    e.preventDefault()
+    this.setState({
+      tab: e.target.innerHTML
+    })
   }
 
   render() {

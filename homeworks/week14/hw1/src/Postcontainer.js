@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { changeTitle } from './actions'
+import { changeTitle } from './ations'
 import Post from './Post'
 
 const mapDispatchProps = dispatch => ({
